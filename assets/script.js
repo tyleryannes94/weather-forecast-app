@@ -10,35 +10,62 @@
 // what city you're searching for
 
 const APIKey = "ada5c877c3f1ff4c35d2f2a88ca7ed5b";
-let city = "Austin";
-const forecastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${APIKey}`;
 
+async function cityWeatherForecast(city = "Austin") {
+    const forecastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${APIKey}&units=metric`;
 
-function cityWeatherForecast (){
-    fetch(forecastURL)
-    .then(response => response.json())
-    .then(data => {
-        displayTodayForecast(data.list[0]);
+    try {
+        const response = await fetch(forecastURL);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+
         // Display today's forecast
         displayTodayForecast(data.list[0]);
 
+        // Clear previous daily forecasts
+        const dailyForecastsEl = document.getElementById('daily-forecasts');
+        dailyForecastsEl.innerHTML = "";
+
         // Display forecast for the next 5 days
         for (let i = 1; i <= 5; ++i) {
-            displayDailyForecast(data.list[i * 8 - 1]);  
+            displayDailyForecast(data.list[i * 8 - 1]);
         }
-        console.log (data);
-    })
-    .catch (error => {
+
+        // Store the city in local storage
+        localStorage.setItem('lastSearchedCity', city);
+    } catch (error) {
         console.log('Error:', error);
-    });
+    }
 }
 
 function displayTodayForecast(forecast) {
+    const todayForecastEl = document.getElementById('today-forecast');
+    
+    const content = `
+        <h2>Today</h2>
+        <p>Temperature: ${forecast.main.temp}°C</p>
+        <p>Weather: ${forecast.weather[0].description}</p>
+    `;
+
+    todayForecastEl.innerHTML = content;
 }
 
 function displayDailyForecast(forecast) {
+    const dailyForecastsEl = document.getElementById('daily-forecasts');
+    
+    const content = `
+        <div class="daily-forecast">
+            <h3>${new Date(forecast.dt * 1000).toLocaleDateString()}</h3>
+            <p>Temperature: ${forecast.main.temp}°C</p>
+            <p>Weather: ${forecast.weather[0].description}</p>
+        </div>
+    `;
 
+    dailyForecastsEl.innerHTML += content;
 }
 
-cityWeatherForecast ("Austin");
-
+cityWeatherForecast("Austin");
