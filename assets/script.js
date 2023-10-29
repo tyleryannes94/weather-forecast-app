@@ -9,15 +9,36 @@
 // (If time allows) add a "home city star" button that appends the forecast at the bottom for a quick comparison to 
 // what city you're searching for
 
-let APIKey = "ada5c877c3f1ff4c35d2f2a88ca7ed5b";
-let city= "Austin";
-let queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+const APIKey = "ada5c877c3f1ff4c35d2f2a88ca7ed5b";
+let city = "Austin";
+const forecastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${APIKey}`;
 
-fetch(queryURL)
-.then(response => response.json())
-.then(data => {
-    console.log(data)
-})
+
+function cityWeatherForecast (){
+    fetch(forecastURL)
+    .then(response => response.json())
+    .then(data => {
+        displayTodayForecast(data.list[0]);
+        // Display today's forecast
+        displayTodayForecast(data.list[0]);
+
+        // Display forecast for the next 5 days
+        for (let i = 1; i <= 5; ++i) {
+            displayDailyForecast(data.list[i * 8 - 1]);  
+        }
+        console.log (data);
+    })
     .catch (error => {
         console.log('Error:', error);
     });
+}
+
+function displayTodayForecast(forecast) {
+}
+
+function displayDailyForecast(forecast) {
+
+}
+
+cityWeatherForecast ("Austin");
+
