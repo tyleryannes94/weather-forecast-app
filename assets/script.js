@@ -12,7 +12,7 @@
 const APIKey = "ada5c877c3f1ff4c35d2f2a88ca7ed5b";
 
 async function cityWeatherForecast(city = "Austin") {
-    const forecastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${APIKey}&units=metric`;
+    const forecastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${APIKey}&units=imperial`;
 
     try {
         const response = await fetch(forecastURL);
@@ -47,7 +47,7 @@ function displayTodayForecast(forecast) {
     
     const content = `
         <h2>Today</h2>
-        <p>Temperature: ${forecast.main.temp}°C</p>
+        <p>Temperature: ${forecast.main.temp}°F</p>
         <p>Weather: ${forecast.weather[0].description}</p>
     `;
 
@@ -60,7 +60,7 @@ function displayDailyForecast(forecast) {
     const content = `
         <div class="daily-forecast">
             <h3>${new Date(forecast.dt * 1000).toLocaleDateString()}</h3>
-            <p>Temperature: ${forecast.main.temp}°C</p>
+            <p>Temperature: ${forecast.main.temp}°F</p>
             <p>Weather: ${forecast.weather[0].description}</p>
         </div>
     `;
