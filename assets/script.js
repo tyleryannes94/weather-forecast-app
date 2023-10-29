@@ -9,4 +9,15 @@
 // (If time allows) add a "home city star" button that appends the forecast at the bottom for a quick comparison to 
 // what city you're searching for
 
-let apiKey = "ada5c877c3f1ff4c35d2f2a88ca7ed5b";
+let APIKey = "ada5c877c3f1ff4c35d2f2a88ca7ed5b";
+let city= "Austin";
+let queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+
+fetch(queryURL)
+.then(response => response.json())
+.then(data => {
+    console.log(data)
+})
+    .catch (error => {
+        console.log('Error:', error);
+    });
