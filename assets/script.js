@@ -49,6 +49,9 @@ function displayTodayForecast(forecast) {
         <h2>Today</h2>
         <p>Temperature: ${forecast.main.temp}°F</p>
         <p>Weather: ${forecast.weather[0].description}</p>
+        <p>Humidity: ${forecast.main.temp}%</p>
+        <p>Wind Speed: ${forecast.wind.speed} mph</p>
+
     `;
 
     todayForecastEl.innerHTML = content;
@@ -62,10 +65,18 @@ function displayDailyForecast(forecast) {
             <h3>${new Date(forecast.dt * 1000).toLocaleDateString()}</h3>
             <p>Temperature: ${forecast.main.temp}°F</p>
             <p>Weather: ${forecast.weather[0].description}</p>
+            <p>Humidity: ${forecast.main.temp}%</p>
+            <p>Wind Speed: ${forecast.wind.speed} mph</p>
         </div>
     `;
 
     dailyForecastsEl.innerHTML += content;
 }
+
+function searchCity() {
+    const city = document.getElementById('city-input').value;
+    cityWeatherForecast(city);
+}
+
 
 cityWeatherForecast("Austin");
