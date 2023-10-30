@@ -39,15 +39,15 @@ function storeCityInLocalStorage(city) {
     if (!cities.includes(city)) {
         cities.push(city);
     }
-    localStorage.setItem('lastSearchedCities', JSON.stringify(cities));
     displayCities(cities);
+    
+    localStorage.setItem('lastSearchedCities', JSON.stringify(cities));
 
 }
 
 // displays saved searches by creating an element in html with the city name saved in localstorage
 function displayCities(cities) {
     const citiesListSpan = document.getElementById('cities-list');
-
     cities.forEach(city => {
         const citySpan = document.createElement('span');
         citySpan.classList.add('mr-2', 'mb-2', 'bg-gray-200', 'p-2', 'rounded');  
