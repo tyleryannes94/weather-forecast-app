@@ -25,16 +25,26 @@ async function cityWeatherForecast(city = "Austin") {
             displayDailyForecast(data.list[i * 8 - 1]);
         }
         // Store the city in local storage
-        localStorage.setItem('lastSearchedCity', city);
+        storeCityInLocalStorage(city);
     } catch (error) {
         console.log('Error:', error);
     }
 }
 
+// Stores city search in local storage as array if truthy; if falsy create empty array
+function storeCityInLocalStorage(city) {
+    let cities = localStorage.getItem('lastSearchedCities');
+    cities = cities ? JSON.parse(cities) : [];
+    if (!cities.includes(city)) {
+        cities.push(city);
+    }
+    localStorage.setItem('lastSearchedCities', JSON.stringify(cities));
+}
+
+
 function displayTodayForecast(forecast, cityName) {
     const todayForecastEl = document.getElementById('today-forecast');
     const iconURL = `http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`;
-
     const content = `
         <h2>Today in ${cityName}</h2>
         <img src="${iconURL}" alt="Weather icon">
@@ -50,7 +60,6 @@ function displayTodayForecast(forecast, cityName) {
 function displayDailyForecast(forecast) {
     const dailyForecastsEl = document.getElementById('daily-forecasts');
     const iconURL = `http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`;
-
     const content = `
         <div class="daily-forecast">
             <h3>${new Date(forecast.dt * 1000).toLocaleDateString()}</h3>
