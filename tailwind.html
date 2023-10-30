@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/style.css"/>
+    <title>Tyler's Weather App</title>
+</head>
+
+<body class="bg-gray-200">
+
+    <div class="container mx-auto p-4">
+
+        <div class="flex mb-6">
+            <input type="text" id="city-input" class="form-input flex-1 mr-2" placeholder="Enter city">
+            <button onclick="searchCity()" class="btn btn-primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Search</button>
+        </div>
+
+        <section class="mb-6">
+            <h1 class="text-xl font-bold mb-4">Today's forecast</h1>
+            <div id="today-forecast" class="flex flex-col items-center space-y-4">
+                <img class="w-40 h-40 object-cover" alt="Weather icon">
+                <div>
+                    <h4 class="text-lg">Label</h4>
+                    <p class="text-gray-600">Something else</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h1 class="text-xl font-bold mb-4">Next 5 days</h1>
+            <div id="daily-forecasts" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            </div>
+        </section>
+
+        <footer class="mt-8">
+            <p><strong>Email:</strong> <a href="mailto:tyler.yannes@gmail.com" class="text-blue-600 hover:text-blue-800">tyler.yannes@gmail.com</a></p>
+            <p> <strong>Github: </strong><a href="https://github.com/tyleryannes94" target="_blank" class="text-blue-600 hover:text-blue-800">Tyler's Github</a> </p>
+        </footer>
+
+    </div>
+
+    <script src="./assets/script.js"></script>
+
+</body>
+</html>
