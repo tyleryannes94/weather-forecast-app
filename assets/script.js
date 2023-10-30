@@ -35,12 +35,26 @@ async function cityWeatherForecast(city = "Austin") {
 function storeCityInLocalStorage(city) {
     let cities = localStorage.getItem('lastSearchedCities');
     cities = cities ? JSON.parse(cities) : [];
+
     if (!cities.includes(city)) {
         cities.push(city);
     }
     localStorage.setItem('lastSearchedCities', JSON.stringify(cities));
+    displayCities(cities);
+
 }
 
+// displays saved searches by creating an element in html with the city name saved in localstorage
+function displayCities(cities) {
+    const citiesListSpan = document.getElementById('cities-list');
+
+    cities.forEach(city => {
+        const citySpan = document.createElement('span');
+        citySpan.classList.add('mr-2', 'mb-2', 'bg-gray-200', 'p-2', 'rounded');  
+        citySpan.textContent = city;
+        citiesListSpan.appendChild(citySpan);
+    });
+}
 
 function displayTodayForecast(forecast, cityName) {
     const todayForecastEl = document.getElementById('today-forecast');
